@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Glowing Login Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #141e30);
+      background-size: 400% 400%;
+      animation: bgMove 15s ease infinite;
+      overflow: hidden;
+    }
+    @keyframes bgMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hero {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      position: relative;
+      padding: 20px;
+    }
+
+    .main-box {
+      background: #1b1b1b;
+      border-radius: 20px;
+      overflow: hidden;
+      width: 360px;
+      padding: 30px;
+      position: relative;
+      box-shadow: 0 0 30px rgba(0,255,255,0.3), 0 0 60px rgba(0,255,255,0.2);
+    }
+
+    .main-box::before {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #00fff7, #f0f, #ff0, #00fff7);
+      z-index: -1;
+      background-size: 400%;
+      animation: glowingBorder 20s linear infinite;
+      border-radius: 20px;
+    }
+
+    @keyframes glowingBorder {
+      0% { background-position: 0 0; }
+      50% { background-position: 400% 0; }
+      100% { background-position: 0 0; }
+    }
+
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      display: block;
+      border-radius: 50%;
+      box-shadow: 0 0 15px #57AAB4;
+    }
+
+    .button-box {
+      width: 100%;
+      background: #111;
+      border-radius: 30px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid #57AAB4;
+    }
+
+    .button-box button {
+      flex: 1;
+      padding: 12px 0;
+      border: none;
+      background: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    #btn {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+      height: 100%;
+      background: #57AAB4;
+      border-radius: 30px;
+      transition: 0.4s;
+      z-index: 0;
+    }
+
+    .input-group {
+      display: none;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .input-group.active {
+      display: flex;
+    }
+
+    .input-field {
+      background: transparent;
+      border: 2px solid #57AAB4;
+      padding: 12px;
+      border-radius: 8px;
+      color: white;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .input-field:focus {
+      box-shadow: 0 0 8px #57AAB4;
+      outline: none;
+    }
+
+    .submit-btn {
+      background: linear-gradient(to right, #03a9f4, #57AAB4);
+      border: none;
+      padding: 12px;
+      color: white;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      box-shadow: 0 0 10px #57AAB4, 0 0 30px #03e9f4;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 15px;
+    }
+
+    .social-icons a {
+      color: #57AAB4;
+      font-size: 20px;
+      transition: 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #03e9f4;
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="main-box">
+      <img class="logo" src="https://img.icons8.com/nolan/64/security-checked.png" alt="logo" />
+      <div class="button-box">
+        <div id="btn"></div>
+        <button type="button" onclick="login()">Login</button>
+        <button type="button" onclick="register()">Register</button>
+      </div>
+
+      <form id="loginForm" class="input-group active">
+        <input type="text" class="input-field" placeholder="Username" required />
+        <input type="password" class="input-field" placeholder="Password" required />
+        <input type="submit" value="Log In" class="submit-btn" />
+      </form>
+
+      <form id="registerForm" class="input-group">
+        <input type="text" class="input-field" placeholder="Username" required />
+        <input type="email" class="input-field" placeholder="Email" required />
+        <input type="password" class="input-field" placeholder="Password" required />
+        <input type="submit" value="Register" class="submit-btn" />
+      </form>
+
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const registerForm = document.getElementById("registerForm");
+    const btn = document.getElementById("btn");
+
+    function login() {
+      loginForm.classList.add("active");
+      registerForm.classList.remove("active");
+      btn.style.left = "0%";
+    }
+
+    function register() {
+      loginForm.classList.remove("active");
+      registerForm.classList.add("active");
+      btn.style.left = "50%";
+    }
+  </script>
+</body>
+</html>
